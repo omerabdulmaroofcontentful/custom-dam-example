@@ -15,8 +15,8 @@ const DialogLocation = ({ sdk }) => {
       .then(setDAMData);
   }, []);
 
-  const cardClicked = props => {
-    sdk.close([props]);
+  const cardClicked = item => {
+    sdk.close([item]);
   };
 
   if (damData) {
@@ -69,7 +69,6 @@ async function openDialog(sdk, _currentValue, config) {
     width: 400,
     allowHeightOverflow: true
   });
-
 
   if (!Array.isArray(result)) {
     return [];

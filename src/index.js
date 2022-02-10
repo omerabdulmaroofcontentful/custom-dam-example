@@ -9,8 +9,12 @@ import { useState, useEffect } from "react";
 const DialogLocation = ({ sdk }) => {
   const [damData, setDAMData] = useState([]);
 
+  const api_key = sdk.parameters.installation.api_key
+  const project_config_id =  sdk.parameters.installation.project_config_id
+
+
   useEffect(() => {
-    fetch("/dam_api_response.json")
+    fetch(`/dam_api_response.json?api_key=${api_key}&project_config_id=${project_config_id}`)
       .then(response => response.json())
       .then(setDAMData);
   }, []);

@@ -11,7 +11,6 @@ const DialogLocation = ({ sdk }) => {
   const [damData, setDAMData] = useState([]);
 
   useEffect(() => {
-    console.log("useEffect");
     fetch("/dam_api_response.json")
       .then(response => response.json())
       .then(setDAMData);
@@ -27,6 +26,7 @@ const DialogLocation = ({ sdk }) => {
         <EntityList>
           {damData.map(item => (
             <EntityList.Item
+              key={item.id}
               title={item.name}
               description="Description"
               thumbnailUrl={item.url}
@@ -45,17 +45,13 @@ const CTA = "Sample DAM Demo App";
 const FIELDS_TO_PERSIST = ["id", "filename", "url"];
 
 function makeThumbnail(attachment) {
-  console.log("makeThumbnail", attachment);
   const thumbnail = attachment.thumbnail_url || attachment.url;
   const url = typeof thumbnail === "string" ? thumbnail : undefined;
   const alt = attachment.filename;
-  console.log(url, alt);
   return [url, alt];
 }
 
 async function renderDialog(sdk) {
-  console.log(sdk.parameters.installation);
-
   const container = document.createElement("div");
   container.id = "my-dialog";
   document.body.appendChild(container);
@@ -75,10 +71,8 @@ async function openDialog(sdk, _currentValue, config) {
     allowHeightOverflow: true
   });
 
-  console.log("result", result);
 
   if (!Array.isArray(result)) {
-    console.log("result is empty");
     return [];
   }
   return result.map(asset => pick(asset, FIELDS_TO_PERSIST));

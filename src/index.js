@@ -7,7 +7,6 @@ import { EntityList } from "@contentful/f36-components";
 import { useState, useEffect } from "react";
 
 const DialogLocation = ({ sdk }) => {
-  sdk.window.updateHeight(500);
   const [damData, setDAMData] = useState([]);
 
   useEffect(() => {
